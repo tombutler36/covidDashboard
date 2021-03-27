@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Covid Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script> -->
+</head>
+
+<body>
+    <h1 class="topHeader">California Covid-19 Dashboard</h1>
+    <h3 class="topSubHeader">Data from the COVID tracking project API</h2>
+        <div class="container ">
+            <div class="card dailyCard">
+                <div class="card-header">
+                    <h2 class="subHeader">Daily Data</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row numbers">
+                        <div class="col-xl-2 col-lg-6 headlineNumbers">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title dataLabels">Last Updated:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <span class="dailyUpdate" id="dateLastUpdated"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-6 headlineNumbers">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title dataLabels">Positive Cases Increase:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <span class="dailyUpdate" id="positiveIncrease"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xl-2 col-lg-6 headlineNumbers">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title dataLabels">Death Increase:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <span class="dailyUpdate" id="deathIncrease"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-6 headlineNumbers">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title dataLabels">Hospitalized:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <span class="dailyUpdate" id="hospitalized"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-6 headlineNumbers">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title dataLabels">In ICU:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <span class="dailyUpdate" id="inICU"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container yearlyContainer">
+            <div class="row">
+                <div class="col-xl-2">
+                    <div class="card yearlyCard">
+                        <div class="card-header">
+                            <h2 class="subHeader">Yearly Data</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row numbers">
+                                <div class="headlineNumbers">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title dataLabels">Total Positive Cases:</h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <span class="dailyUpdate" id="totalPositive"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="headlineNumbers">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title dataLabels">Total Tests:</h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <span class="dailyUpdate" id="totalTests"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="headlineNumbers">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title dataLabels">Total Deaths:</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="dailyUpdate" id="totalDeaths"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="subHeader">Visualizations</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row chartRow">
+                                <div class="col-xl-5">
+                                    <canvas id="yearlyTotals"></canvas>
+                                </div>
+                                <div class="col-xl-5">
+                                    <canvas id="percentInfected"></canvas>
+                                </div>
+                            </div>
+                            <div class="row chartRow">
+                                <div class="col-xl-5">
+                                    <canvas id="rateOfIncrease"></canvas>
+                                </div>
+                                <div class="col-xl-5">
+                                    <canvas id="yearlyHospitalized">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+        <footer>
+            <div class="row footerNotes">
+                <div class="col-6">
+                    <h3 class="footerText">All Data was retrieved from the COVID Tracking project API</h3>
+                    <h3 class="footerText">Data was visualized using Chart.js </h3>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+        <script src="index.js"></script>
+</body>
+
+</html>
